@@ -12,6 +12,12 @@ module.exports = (mongodb) => {
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(cookieParser());
     
+    app.get('/test', (req, res, next) => {
+        return res.status(200).json({
+            message: 'Hello from orders!'
+        });
+    });
+
     app.use('/v1', require('./v1/api')(mongodb));
     
     app.use(require('./error/not-found')());
