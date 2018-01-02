@@ -6,11 +6,10 @@ const menuItemsService = require('./../../../repositories/remote/menu-items')();
 module.exports = (ordersRepo) => {
     return (req, res, next) => {
         const newOrderDetails = _.get(req, 'body', {});
-
-        if (Object.keys(newOrderDetails).length === 0) {
+        if (areNewOrderDetailsCorrect(newOrderDetails)) {
             return next({
                 status: 400,
-                message: 'New order details cannot be empty.'
+                message: 'New order details cannot be empty and have to contain id of the menu item to place the order.'
             });
         }
 
@@ -23,3 +22,7 @@ module.exports = (ordersRepo) => {
             }).catch(next);
     };
 };
+
+function areNewOrderDetailsCorrect(newOrderDetails) {
+    return ((Object.keys(newOrderDetails).length === 0) || (!_.has(newOrderDetails, 'id')));
+}
