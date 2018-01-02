@@ -2,18 +2,20 @@
 
 require('dotenv').config();
 
-let server, port;
-
-const MongoClient = require('mongodb').MongoClient;
 const {
+    MONGODB_URI,
     MONGO_HOST = 'localhost',
     MONGO_PORT = '27017',
     DB_NAME = 'iosr2017-orders',
-    PORT = '3000'
+    PORT = '3001'
 } = process.env;
-const mongoUrl = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${DB_NAME}`;
-console.log(`Connecting to: ${mongoUrl}`);
 
+let server, port;
+
+const MongoClient = require('mongodb').MongoClient;
+const mongoUrl = createMongoUrl();
+
+console.log(`Connecting to: ${mongoUrl}`);
 MongoClient.connect(mongoUrl)
     .then(mongodb => {
         console.log(`Connected to db.`);
@@ -83,4 +85,9 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     console.log('Listening on ' + bind);
+}
+
+function createMongoUrl() {
+    const customUrl = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${DB_NAME}`
+    return MONGODB_URI || customUrl;
 }

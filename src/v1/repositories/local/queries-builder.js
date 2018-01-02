@@ -4,7 +4,9 @@ module.exports = () => {
     return {
         getByIdQuery(id) {
             const oId = new ObjectId(id);
-            return {_id:oId};
+            return {
+                _id: oId
+            };
         }
     };
 };

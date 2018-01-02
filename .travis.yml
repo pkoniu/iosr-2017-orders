@@ -1,0 +1,23 @@
+sudo: required
+services:
+- docker
+language: node_js
+node_js:
+- '8'
+before_script:
+- npm test
+script:
+- sh .travis/dockerhub/build.sh
+- sh .travis/heroku/build.sh
+after_success:
+- npm run infra
+after_script:
+- sh .travis/dockerhub/push.sh
+- sh .travis/heroku/push.sh
+env:
+  global:
+  - DOCKER_USER=iosr2017
+  - DOCKER_REPO=orders
+  - HEROKU_APP_NAME=iosr2017orders
+  - secure: XKcKmi5f7dGgVsMMxTLmHDYkL2qffZBJXtIaojHETG7Q5MCeRwi5scesEyXUPyXQn1V2b2tgXI3F92qxk4Uwuscr9eQbpTwDGAEf/Qq6v1dtwwwtI2K1Ar4ULor5gfvZ+GsuUdq9Gq1g84xVgtaWyIM5daEzSShxZWW2tsdESEllZP6ouDtgOiAQx+SbmeqnAqjw4UC/2koGfcQgoss7W0wPrJ2klmx7j8/VSsumfWXzkiBs7KJR9meBK5xpOaP1cFeLC+lLCChYKqw++p7OHmfVYdQ2/CfqcCpJNGIMuv+P/H7W+yDbMtwqVLEboUrqPKTHBiav0lQGIFEZRZ1AYM8VNbKfjwyaVMzu7O4hojJ+r/W4TCgWd+CAnI7ea8v2U+/XMzk0H2QACthvOkSMs6S7MTk5bMELlPDzRn0hrNMl/aGJmVmVSjVKldOvo9RccGtVraq+s9PcQwwnoZZnxDGjSUjt4rJ8LzmXyZcSFyOJh9V4iD30OMgRAQl7P6x3+Nt11u8g7LEV3KfXl6BOu9b/GRIaJu/pemZn/x9V91Kj7S31fUmLwGJh/H2q8Ef3+JlmCDUwpBMNob7LNln87UUY2OSs/Lhw+O1DbHATiWZt4j+uIBdMDrwolpZDDgaUh16L5RRmJBypHolgxVyEuXnhKjwXaXTwFECWJXEXmvU=
+  - secure: AXwSMDZRMlvIUl6PavTJKtsIS1BY5+ptoBMe6Bl8VZPIz0dqLuZbPGqSMPMbc8ueT9W7r601o1IX7nIIJ0DUpno+Qy/9UB6YlFZWKbFqzVjHIecD2/JA/KpTfCiOu/87cy5eLPejmpYPxqPBRcqhDR1yBLbZ2uGCcjU6G/jDPd7zuYUubH9sZk96h9e4IEWtCrvTCyrRY7kTIGlQza9WWxe6KIjqexrOuBeWAD2GimoLaQtTXLlHW5vLXvkoA8BCLombVyWNeP4N4cyGsZHYpr4RyIndAWxZN/FK73HmcgWwEURNGqdKB+0XvI1yggSk8onZjDDTxIr/CWiqoYofgJVoqn9E1UtXoiMde903Nl2sEVAvW6kVnbCxTNl9+sfSUn06xgrAAch601odONXUMN263r64gY2Y+Xo8XmoNDu+VaC9kTwAyKRvRDFyfqHyxs7HXT7+IsVDGYKJ5+fsj3jaYQfvaJckeyfJ+o41CRywImvRRElwXyRMYZBFXKolxrWO345ZXFy2R1AI2cy6peALAHhYf09MhQ3Ks2+ZLfbsXuLCsWOFsyBbr41T57Bcnas/QqhdR0v1ODO+8KNufP5U2QuYg0OYTyVnDjSuNln1vdDqkgIjerMNYytHOmLi4xgWVf2PXWrlsdsaEPLWVF03LTx1OBRxRpwXkjJCsTRw=
