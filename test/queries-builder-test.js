@@ -2,7 +2,7 @@ const assert = require('assert');
 const _ = require('lodash');
 const ObjectId = require('mongodb').ObjectId;
 
-const queriesBuilder = require('./../src/v1/repositories/queries-builder')();
+const queriesBuilder = require('./../src/v1/repositories/local/queries-builder')();
 
 describe('Queries builder', () => {
     it('should build correct query for finding client details by id', () => {
