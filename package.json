@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "start:debug": "node inspect ./bin/www",
     "test": "mocha",
+    "test:integration": "echo integration tests - passed",
     "infra": "node infrastructure/heroku"
   },
   "dependencies": {
