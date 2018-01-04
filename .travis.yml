@@ -1,19 +1,24 @@
 sudo: required
+git:
+  depth: false
 services:
 - docker
+- heroku
 language: node_js
 node_js:
 - '8'
+before_install:
+- openssl aes-256-cbc -K $encrypted_9f97bc52c395_key -iv $encrypted_9f97bc52c395_iv -in .netrc.enc -out .netrc -d
+- git clone https://github.com/pkoniu/iosr-2017-deployment.git
+- sh iosr-2017-deployment/before_install.sh
+install:
+- npm install
 before_script:
 - npm test
 script:
-- sh .travis/dockerhub/build.sh
-- sh .travis/heroku/build.sh
+- sh iosr-2017-deployment/script.sh
 after_success:
-- npm run infra
-after_script:
-- sh .travis/dockerhub/push.sh
-- sh .travis/heroku/push.sh
+- sh iosr-2017-deployment/after_success.sh
 env:
   global:
   - DOCKER_USER=iosr2017
