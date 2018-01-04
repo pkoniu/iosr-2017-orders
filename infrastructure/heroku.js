@@ -15,8 +15,8 @@ configurator(configs.staging)
         return configurator(configs.production);
     })
     .then(result => {
-        console.log('=== Apps prepared ===')
-        console.log('=== Setting up pipelines ===')
+        console.log('=== Apps prepared ===');
+        console.log('=== Setting up pipelines ===');
         return configurator.pipeline(pipelineConfig);
     }).then(result => {
     console.log('=== Pipelines prepared ===');
