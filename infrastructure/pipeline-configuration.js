@@ -3,7 +3,7 @@ const {
 } = process.env;
 
 module.exports = {
-    name: 'iosr2017-orders-pipeline',
+    name: `${HEROKU_APP_NAME}-pipeline`,
     apps: {
         staging: `${HEROKU_APP_NAME}-staging`,
         production: `${HEROKU_APP_NAME}-production`
