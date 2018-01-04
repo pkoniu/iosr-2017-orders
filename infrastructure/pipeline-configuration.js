@@ -7,6 +7,5 @@ module.exports = {
     apps: {
         staging: `${HEROKU_APP_NAME}-staging`,
         production: `${HEROKU_APP_NAME}-production`
-    },
-    owner: 'patryk.konior@gmail.com'
+    }
 };
