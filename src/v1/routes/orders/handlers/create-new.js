@@ -15,6 +15,9 @@ module.exports = (ordersRepo) => {
 
         return menuItemsService.getById(newOrderDetails.id)
             .then(menuItemToOrder => {
+                if(menuItemToOrder.length === 0){
+                    return next({status: 400, message: "Cannot create order for non-existing menu item"});
+                }
                 return ordersRepo.createNew(newOrderDetails)
             })
             .then(creationResult => {
