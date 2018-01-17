@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -11,6 +11,7 @@ module.exports = (mongodb) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(cookieParser());
+    app.use(cors());
     
     app.get('/test', (req, res, next) => {
         return res.status(200).json({
