@@ -12,7 +12,7 @@ module.exports = (collection) => {
             return collection.find(filter).toArray();
         },
         createNew(details) {
-            return collection.insertOne(details)
+            return collection.insertOne(Object.assign(details,{status: "unpaid"}))
                 .then(insertResponse => {
                     const createdOrder = _.get(insertResponse, 'ops.0', {});
                     return {
@@ -30,6 +30,16 @@ module.exports = (collection) => {
                     };
                 });
         },
+        deleteOneWithStatus(id, status) {
+                    const filter = queriesBuilder.getByIdAndStatusQuery(id, status);
+                    return collection.findOneAndDelete(filter)
+                        .then(deleteResponse => {
+                            const deletedOrder = _.get(deleteResponse, 'value', {});
+                            return {
+                                deletedOrder
+                            };
+                        });
+                },
         updateOne(id, toUpdate) {
             const filter = queriesBuilder.getByIdQuery(id);
             const update = {$set:toUpdate};

@@ -1,11 +1,21 @@
 const _ = require('lodash');
 
 module.exports = (ordersRepo) => {
-    return (req, res, next) => {
-        const id = _.get(req, 'params.id');
-        return ordersRepo.deleteOne(id)
-            .then(deletionResult => {
-                return res.status(200).json(deletionResult);
-            }).catch(next);
+    return async (req, res, next) => {
+        try {
+            const id = _.get(req, 'params.id');
+            const deletionResult = await ordersRepo.deleteOneWithStatus(id, "unpaid")
+            console.log(deletionResult)
+            if(deletionResult && deletionResult.deletedOrder){
+                return res.status(200).json(deletionResult)
+            }
+            const findResult = await ordersRepo.getById(id)
+            if(findResult && findResult.length && findResult.length > 0) {
+                return res.status(403).json({"message": "Order with given ID has already been paid, and cannot be deleted."})
+            }
+            return res.status(403).json({"message": "Order with given ID doesn't exist."})
+        } catch (error){
+            return next(error)
+        }
     };
 };
