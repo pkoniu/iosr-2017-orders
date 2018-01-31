@@ -7,13 +7,40 @@ const {
     MONGO_HOST = 'localhost',
     MONGO_PORT = '27017',
     DB_NAME = 'iosr2017-orders',
-    PORT = '3003'
+    PORT = '3003',
+    EUREKA_APP_NAME = 'orders',
+    EUREKA_APP_HOST_NAME = 'localhost',
+    EUREKA_APP_IP_ADDR = '127.0.0.1',
+    EUREKA_APP_VIP_ADDR = 'localhost',
+    EUREKA_SERVER_URL = 'https://user:iosr2017@iosr2017eureka-develop.herokuapp.com/eureka/apps'
 } = process.env;
 
 let server, port;
 
 const MongoClient = require('mongodb').MongoClient;
 const mongoUrl = createMongoUrl();
+
+const Eureka = require('eureka-js-client').Eureka;
+const client = new Eureka({
+      instance: {
+        app: EUREKA_APP_NAME,
+        hostName: EUREKA_APP_HOST_NAME,
+        ipAddr: EUREKA_APP_IP_ADDR,
+        port: normalizePort(PORT),
+        vipAddress: EUREKA_APP_VIP_ADDR,
+        dataCenterInfo: {
+          name: 'MyOwn'
+        },
+        statusPageUrl: EUREKA_APP_HOST_NAME,
+        healthCheckUrl: EUREKA_APP_HOST_NAME,
+        homePageUrl: EUREKA_APP_HOST_NAME,
+      },
+      eureka: {
+        serviceUrls: {
+            default: [EUREKA_SERVER_URL]
+        }
+      },
+    });
 
 console.log(`Connecting to: ${mongoUrl}`);
 MongoClient.connect(mongoUrl)
@@ -85,6 +112,7 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     console.log('Listening on ' + bind);
+    client.start();
 }
 
 function createMongoUrl() {

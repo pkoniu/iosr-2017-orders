@@ -12,7 +12,11 @@ module.exports = {
         config_vars: {
             NODE_ENV: 'staging',
             CLIENTS_SERVICE_URL: 'http://iosr2017clients-staging.herokuapp.com',
-            MENU_SERVICE_URL: 'http://iosr2017menu-staging.herokuapp.com'
+            MENU_SERVICE_URL: 'http://iosr2017menu-staging.herokuapp.com',
+            EUREKA_APP_HOST_NAME: `${HEROKU_APP_NAME}-staging.herokuapp.com`,
+            EUREKA_APP_IP_ADDR: '127.0.0.1',
+            EUREKA_APP_VIP_ADDR: `${HEROKU_APP_NAME}-staging.herokuapp.com`,
+            EUREKA_SERVER_URL: 'https://user:iosr2017@iosr2017eureka-staging.herokuapp.com/eureka/apps'
         },
         addons: {
             librato: {
@@ -39,7 +43,11 @@ module.exports = {
         config_vars: {
             NODE_ENV: 'production',
             CLIENTS_SERVICE_URL: 'http://iosr2017clients-production.herokuapp.com',
-            MENU_SERVICE_URL: 'http://iosr2017menu-production.herokuapp.com'
+            MENU_SERVICE_URL: 'http://iosr2017menu-production.herokuapp.com',
+            EUREKA_APP_HOST_NAME: `${HEROKU_APP_NAME}-production.herokuapp.com`,
+            EUREKA_APP_IP_ADDR: '127.0.0.1',
+            EUREKA_APP_VIP_ADDR: `${HEROKU_APP_NAME}-production.herokuapp.com`,
+            EUREKA_SERVER_URL: 'https://user:iosr2017@iosr2017eureka-production.herokuapp.com/eureka/apps'
         },
         addons: {
             librato: {
