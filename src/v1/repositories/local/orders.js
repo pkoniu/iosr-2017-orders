@@ -4,8 +4,9 @@ const queriesBuilder = require('./queries-builder')();
 
 module.exports = (collection) => {
     return {
-        getAll() {
-            return collection.find().toArray();
+        getAll(userid) {
+            console.log(userid);
+            return collection.find({forClient: userid}).toArray();
         },
         getById(id) {
             const filter = queriesBuilder.getByIdQuery(id);
@@ -42,7 +43,7 @@ module.exports = (collection) => {
                 },
         updateOne(id, toUpdate) {
             const filter = queriesBuilder.getByIdQuery(id);
-            const update = {$set:toUpdate};
+            const update = {$set: toUpdate};
             const options = {returnOriginal: false};
             debugger;
             return collection.findOneAndUpdate(filter, update, options)

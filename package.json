@@ -17,6 +17,7 @@
     "dotenv": "^4.0.0",
     "eureka-js-client": "^4.4.0",
     "express": "~4.14.0",
+    "express-jwt": "^5.3.0",
     "heroin-js": "^1.20.1",
     "lodash": "^4.17.4",
     "mocha": "^4.1.0",
