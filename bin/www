@@ -21,7 +21,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoUrl = createMongoUrl();
 
 const Eureka = require('eureka-js-client').Eureka;
-const client = new Eureka({
+const eurekaClient = new Eureka({
       instance: {
         app: EUREKA_APP_NAME,
         hostName: EUREKA_APP_HOST_NAME,
@@ -47,7 +47,7 @@ MongoClient.connect(mongoUrl)
     .then(mongodb => {
         console.log(`Connected to db.`);
 
-        const app = require('../src/app')(mongodb);
+        const app = require('../src/app')(mongodb, eurekaClient);
         const debug = require('debug')('iosr-2017:server');
         const http = require('http');
 
@@ -112,7 +112,7 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     console.log('Listening on ' + bind);
-    client.start();
+    eurekaClient.start();
 }
 
 function createMongoUrl() {

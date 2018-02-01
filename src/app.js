@@ -4,7 +4,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-module.exports = (mongodb) => {
+module.exports = (mongodb, eurekaClient) => {
     const app = express();
     
     app.use(logger('dev'));
@@ -19,7 +19,7 @@ module.exports = (mongodb) => {
         });
     });
 
-    app.use('/v1', require('./v1/api')(mongodb));
+    app.use('/v1', require('./v1/api')(mongodb, eurekaClient));
     
     app.use(require('./error/not-found')());
     app.use(require('./error/general-handler')());

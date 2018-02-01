@@ -11,8 +11,6 @@ module.exports = {
         stack: 'heroku-16',
         config_vars: {
             NODE_ENV: 'staging',
-            CLIENTS_SERVICE_URL: 'http://iosr2017clients-staging.herokuapp.com',
-            MENU_SERVICE_URL: 'http://iosr2017menu-staging.herokuapp.com',
             EUREKA_APP_HOST_NAME: `${HEROKU_APP_NAME}-staging.herokuapp.com`,
             EUREKA_APP_IP_ADDR: '127.0.0.1',
             EUREKA_APP_VIP_ADDR: `${HEROKU_APP_NAME}-staging.herokuapp.com`,
@@ -42,8 +40,6 @@ module.exports = {
         stack: 'heroku-16',
         config_vars: {
             NODE_ENV: 'production',
-            CLIENTS_SERVICE_URL: 'http://iosr2017clients-production.herokuapp.com',
-            MENU_SERVICE_URL: 'http://iosr2017menu-production.herokuapp.com',
             EUREKA_APP_HOST_NAME: `${HEROKU_APP_NAME}-production.herokuapp.com`,
             EUREKA_APP_IP_ADDR: '127.0.0.1',
             EUREKA_APP_VIP_ADDR: `${HEROKU_APP_NAME}-production.herokuapp.com`,

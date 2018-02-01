@@ -1,10 +1,6 @@
 const _ = require('lodash');
 
-//todo: di maybe?
-const menuItemsService = require('./../../../repositories/remote/menu-items')();
-const clientsService = require('./../../../repositories/remote/clients')();
-
-module.exports = (ordersRepo) => {
+module.exports = (ordersRepo, menuItemsService, clientsService) => {
     return async (req, res, next) => {
         const newOrderDetails = _.get(req, 'body', {});
         if (areNewOrderDetailsCorrect(newOrderDetails)) {
